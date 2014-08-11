@@ -1,0 +1,47 @@
+{
+    "DocLister":{
+        "controller": "site_content",
+        "api": [
+            "id",
+            "pagetitle",
+			"published"
+        ],
+		"display":"25",
+		"debug":"0",
+        "showNoPublish" : 1,
+        "idType":"documents",
+		"orderBy":"menuindex DESC"
+    },
+    "table": "site_content",
+    "class": "modResource",
+    "idField": "id",
+    "docURL":{
+        "edit":"index.php?a=27&id=",
+        "new":"index.php?a=4&pid=12"
+    },
+	"docName":{
+        "edit":"Вакансия #",
+        "new":"Новая вакансия"
+    },
+    "parentField": "parent",
+    "renameField": {
+        "/^tv_(.*)$/": "1"
+    },
+    "rules":{
+        "id" : "12"
+    },
+    "grid" : {
+        "id" : {
+            "name":"ID",
+            "options": "field:'id',width:40"
+        },
+		"pagetitle":{
+            "name": "Вакансия",
+            "options": "field:'pagetitle',width:500,align:'left',editor:{type:'validatebox',options:{required:true}}"
+        },
+ 		"published":{
+            "name": "Опубликован",
+            "options": "field:'published',width:100,align:'center',editor:{type:'checkbox',options:{on:'1',off:'0'}}"
+        }
+    }
+}

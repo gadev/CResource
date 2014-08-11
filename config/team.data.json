@@ -1,0 +1,59 @@
+{
+    "DocLister":{
+        "controller": "site_content",
+        "api": [
+            "id",
+            "pagetitle",
+            "published",
+			"introtext",
+			"tv.rang"
+        ],
+		"display":"50",
+		"debug":"0",
+		"tvList":"rang",
+        "showNoPublish" : 1,
+        "idType":"documents",
+		"orderBy":"rang ASC"
+    },
+    "table": "site_content",
+    "class": "modResource",
+    "idField": "id",
+    "docURL":{
+        "edit":"index.php?a=27&id=",
+        "new":"index.php?a=4&pid=10"
+    },
+	"docName":{
+        "edit":"Сотрудник #",
+        "new":"Новый сотрудник"
+    },
+    "parentField": "parent",
+    "renameField": {
+        "/^tv_(.*)$/": "1"
+    },
+    "rules":{
+        "id" : "10"
+    },
+    "grid" : {
+        "id" : {
+            "name":"ID",
+            "options": "field:'id',width:40"
+        },
+		"pagetitle":{
+            "name": "Сотрудник",
+            "options": "field:'pagetitle',width:300,align:'left',editor:{type:'validatebox',options:{required:true}}"
+        },
+		"rang":{
+            "name": "Ранг",
+            "options": "field:'tv_rang',width:100,align:'center',editor:{type:'checkbox',options:{on:'1',off:'0'}}"
+        },
+		"introtext":{
+            "name": "Должность",
+            "options": "field:'introtext',width:300,align:'left',editor:{type:'validatebox',options:{required:true}}"
+        },
+		"published":{
+            "name": "Опубликован",
+            "options": "field:'published',width:100,align:'center',editor:{type:'checkbox',options:{on:'1',off:'0'}}"
+        }
+        
+    }
+}
