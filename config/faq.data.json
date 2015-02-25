@@ -1,0 +1,72 @@
+{
+    "DocLister":{
+        "controller": "onetable",
+        "table" : "faq",
+        "api": [
+            "id",
+            "date",
+			"name",
+            "phone",
+            "email",
+            "question",
+			"answer"
+        ],
+		"orderBy" : "date DESC",
+        "dateSource" : "date",
+		"display":"20",
+		"debug":"0",
+        "ignoreEmpty" : "1",
+        "idType":"documents",
+		"showNoPublish" : 1,
+		"showParent": 0,
+		"idField" : "id"
+    },
+    "table": "faq",
+    "class": "modFaq",
+    "idField": "id",
+    "docURL":{
+        "edit":"index.php?a=112&id=4&mode=edit&doc=",
+        "new":"index.php?a=112&id=4&mode=new"
+    },
+	"search":{
+		"addWhereList":"o_place,o_date"
+	},
+    "parentField": "",
+    "renameField": {
+        "/^tv_(.*)$/": "1"
+    },
+	"docName":{
+        "edit":"Вопрос #",
+        "new":"Новый вопрос"
+    },
+    "rules":{
+        "id" : "6"
+    },
+    "grid" : {
+        "id" : {
+            "name":"ID",
+            "options": "field:'id',width:30"
+        },
+        "name":{
+            "name": "Имя",
+            "options": "field: 'name', width:150,editor:{type:'validatebox',options:{required:true}}"
+        },
+		
+        "phone":{
+            "name": "Телефон",
+            "options": "field: 'phone', width:110,editor:{type:'validatebox',options:{required:true}}"
+        },
+		"email":{
+            "name": "Email",
+            "options": "field: 'email', width:100,editor:{type:'validatebox',options:{required:true}}"
+        },
+		"question":{
+            "name": "Вопрос",
+            "options": "field:'question',width:300,align:'right',editor:{type:'textarea',options:{required:true}}"
+        },
+		"answer":{
+            "name": "Ответ",
+            "options": "field:'answer',width:300,align:'center',editor:{type:'textarea',options:{on:'1',off:'0'}}"
+        }
+    }
+}

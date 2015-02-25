@@ -57,26 +57,6 @@ class CRdata extends CRcore{
         }
         return $out;
     }
-	
-	public function setpos(){
-		$out = false;
-		if(!empty($_POST['newpos'])){
-			$i=0;
-			$arr = array_reverse($_POST['newpos']);
-			foreach($arr as $val){
-				$sql = "UPDATE ".$this->_modx->getFullTableName('site_content')." SET `menuindex`='$i' WHERE `id`=$val";
-				$result = $this->_modx->db->query($sql);
-				if ($result){
-					
-				} else {
-					$out = 'Ошибка записи';
-				}
-				$i++;
-			}
-			$this->_modx->clearCache();
-		}
-		return $out;
-	}
 
     public function update(){
         $out = false;

@@ -6,7 +6,6 @@
             "pagetitle",
             "published"
         ],
-		"orderBy" : "createdon DESC",
 		"display":"20",
 		"debug":0,
         "showNoPublish" : 1,
@@ -20,18 +19,18 @@
     "idField": "id",
     "docURL":{
         "edit":"index.php?a=27&id=",
-        "new":"index.php?a=4&pid=10"
+        "new":"index.php?a=4&pid=3"
     },
 	"docName":{
-        "edit":"Новость #",
-        "new":"Добавление новости"
+        "edit":"Продукт #",
+        "new":"Новый продукт"
     },
     "parentField": "parent",
     "renameField": {
         "/^tv_(.*)$/": "1"
     },
     "rules":{
-        "id" : "10"
+        "id" : "2"
     },
     "grid" : {
         "id" : {
@@ -39,12 +38,12 @@
             "options": "field:'id',width:40"
         },
 		"pagetitle":{
-            "name": "Заголовок",
-            "options": "field:'pagetitle',width:500,align:'left'"
+            "name": "Продукт",
+            "options": "field:'pagetitle',width:600,align:'left',editor:{type:'validatebox',options:{required:true}}"
         },
 		"published":{
             "name": "Опубликован",
-            "options": "field:'published',width:90,align:'center',editor:{type:'checkbox',options:{on:'1',off:'0'}}"
+            "options": "field:'published',width:100,align:'center',editor:{type:'checkbox',options:{on:'1',off:'0'}}"
         }
         
     }

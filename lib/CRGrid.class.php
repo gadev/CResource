@@ -61,19 +61,14 @@ class CRGrid extends CRcore{
             $tpl = $this->loadTPLdata();
             $tmp = "?data={$this->_idConfig}&parent={$DocID}";
             $data['docEditURL'] = "/".MGR_DIR."/".$this->getOptions(array('docURL','edit'),"index.php?a=27&id=");
-			$data['docEditName'] = $this->getOptions(array('docName','edit'));
             $data['docNewURL'] = "/".MGR_DIR."/".$this->getOptions(array('docURL','new'),"index.php?a=4");
-            $data['docNewName'] = $this->getOptions(array('docName','new'));
+			$data['docNewName'] = $this->getOptions(array('docName','new'));
+			$data['docNewName'] = $this->getOptions(array('docName','new'));
+			$data['docEditName'] = $this->getOptions(array('docName','edit'));
             $data['saveURL'] = $tpl['dir']."action.php{$tmp}&mode=save";
             $data['updateURL'] = $tpl['dir']."action.php{$tmp}&mode=update";
             $data['delURL'] = $tpl['dir']."action.php{$tmp}&mode=delete";
             $data['listURL'] = $tpl['dir']."action.php{$tmp}&mode=list";
-			$data['setposURL'] = $tpl['dir']."action.php{$tmp}&mode=setpos";
-			$docinfo = $this->_modx->getPageInfo($DocID,'1','pagetitle');
-			$data['pagetitle'] = $docinfo['pagetitle'];
-			$data['pagesize'] = $this->getOptions(array('DocLister','display'));
-
-			
             $out.=$this->gridData($data);
 
         $out.= $this->template('footer');
@@ -110,12 +105,12 @@ class CRGrid extends CRcore{
     private function gridData($data){
         $out = '';
         $data['idField'] = $this->getOptions('idField','id');
+		$data['display'] = $this->getOptions('display', 10, $this->getOptions('DocLister', array()));
         $grid = $this->getOptions('grid',array());
         foreach($grid as $item=>$value){
               $name = isset($value['name']) ? $value['name'] : $item;
               $options = isset($value['options']) ? $value['options'] : "field: '{$item}'";
-              $out .= "<th data-options=\"{$options}\" sortable=\"false\">{$name}</th>";
-			  //отключена сортировка
+              $out .= "<th field=\"{$item}\" data-options=\"{$options}\" sortable=\"true\">{$name}</th>";
         }
         $data['header'] = $out;
         return $this->template('grid',$data);

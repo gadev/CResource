@@ -19,6 +19,15 @@ switch($modx->event->name){
 		if($action==3){
             $config = isset($config) ? $config : '';
             $action = isset($modx->event->params['action']) ? $modx->event->params['action'] : null;
+			//парсим массив конфигов и привязанных id
+			$preco = explode('||', $config);
+			foreach ($preco as $val) {
+				$conf[] = explode('::', $val);
+			}
+			foreach ($conf as $val) {
+				$configArr[$val[0]] = $val[1];
+			}
+			$config = $configArr[$_REQUEST['id']];
             $CRGrid = new CRGrid($modx, $config);
             if($CRGrid->checkRules()){
 			    echo $CRGrid->render($which_jquery, $jqname, $js_src_type);

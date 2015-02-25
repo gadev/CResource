@@ -34,18 +34,6 @@ switch($mode){
         }
         break;
     }
-	case 'setpos':{
-		$is = $CRdata->setpos();
-		if(empty($is)){
-			$out['success'] = "Порядок сохранен";
-			$out = json_encode($out);
-		} else {
-            $out['error'] = "Ошибка сохранения записи";
-			$out = json_encode($out);
-		}
-		
-		break;
-	}
     case 'delete':{
         if($id = $CRdata->delete()){
             $out = array();
@@ -66,9 +54,10 @@ switch($mode){
     case 'list':{
         $out = '';
         $default = $CRdata->getOptions('DocLister',array());
+        $param = array_merge($param , $default);
 
-        //$display = isset($_REQUEST['rows']) ? (int)$_REQUEST['rows'] : 10;
         $display = isset($default['display']) ? (int)$default['display'] : 10;
+        $display = isset($_REQUEST['rows']) ? (int)$_REQUEST['rows'] : $display;
         $offset = isset($_REQUEST['page']) ? (int)$_REQUEST['page'] : 1;
         $offset = $display*($offset-1);
 
@@ -85,15 +74,34 @@ switch($mode){
         if(isset($_REQUEST['order']) && in_array(strtoupper($_REQUEST['order']), array("ASC","DESC"))){
             $param['sortDir'] = $_REQUEST['order'];
         }
-        $param = array_merge($param, $default);
+		
+		if(isset($_REQUEST['search'])){
+			//проверяем настройки конфига по чем искать
+			$where = $CRdata->getOptions('search');
+			if($where['addWhereList']) {
+				$aWLVals = explode(",", $where['addWhereList']);
+				foreach ($aWLVals as $val) {
+					$aWL[] = $val . " LIKE '%" . $_REQUEST['search'] . "%'";
+				}
+				$param['addWhereList'] = '(' . implode(" OR ", $aWL) . ')';
+			}
+			if($where['filters']) {
+				$fVals = explode(",", $where['filters']);
+				foreach ($fVals as $val) {
+					$f[] = 'tv:'.$val.':containsOne:'.$_REQUEST['search'];
+				}
+				$param['filters'] = implode(";", $f);
+			}
+			//$param['addWhereList'] = "c.pagetitle LIKE '%" . $_REQUEST['search'] . "%'";
+		}
 
         $param['idField'] = $CRdata->getOptions('idField','id');
         $tmp = $CRdata->getOptions('parentField',null);
 
         if(isset($_REQUEST['parent']) && !empty($tmp) && (int)$_REQUEST['parent']>=0){
-            $param['addWhereList'] = $tmp." = '".(int)$_REQUEST['parent']."'";
+            $param['parents'] = (int)$_REQUEST['parent'];
         }
-        $out=$modx->runSnippet("DocLister",$param);
+        $out = $modx->runSnippet("DocLister",$param);
         break;
     }
 }
